@@ -1,30 +1,39 @@
-function Employee(employeeName, salaryArray) {
-	this.employeeName = employeeName;
-	this.salaryArray = salaryArray;
+class Employee {
+	constructor(employeeName, salaryArray) {
+		this.employeeName = employeeName;
+		this.salaryArray = salaryArray;
+	}
+	averageSalary() {
+		const sumSalaries = this.salaryArray.reduce(
+			(total, item) => total + item
+		);
+		const averageSalary = parseFloat(sumSalaries / 12).toFixed(2);
+		return averageSalary;
+	}
 }
 
-Employee.prototype.averageSalary = function (bonus = 10) {
-	const sumSalaries = this.salaryArray.reduce((total, item) => total + item);
-	const averageSalary = Math.round(
-		(sumSalaries + (sumSalaries * bonus) / 100) / 12
-	).toFixed(2);
-	return `$${averageSalary} (averageSalary), ${bonus}% (bonus)`;
-};
+class Manager extends Employee {
+	constructor(employee, department, orderNumber, dateOfEmployment) {
+		super(employee.employeeName, employee.salaryArray);
+		this.department = department;
+		this.orderNumber = orderNumber;
+		this.dateOfEmployment = dateOfEmployment;
+	}
+	displayInfo() {
+		console.log(
+			` Name: ${this.employeeName},\n Salary: ${this.salaryArray}\n Department: ${this.department},\n Order number: ${this.orderNumber},\n Date of employment: ${this.dateOfEmployment}\n `
+		);
+	}
 
-Manager.prototype = Object.create(Employee.prototype);
+	averageSalary(bonus = 10) {
+		const baseAverageSalary = super.averageSalary();
+		const averageSalaryWithBonus = parseFloat(
+			parseFloat(baseAverageSalary) + (baseAverageSalary * bonus) / 100
+		).toFixed(2);
 
-function Manager(employee, department, orderNumber, dateOfEmployment) {
-	Employee.call(this, employee.employeeName, employee.salaryArray);
-	this.department = department;
-	this.orderNumber = orderNumber;
-	this.dateOfEmployment = dateOfEmployment;
+		return averageSalaryWithBonus;
+	}
 }
-
-Manager.prototype.showInfo = function () {
-	console.log(
-		` Name: ${this.employeeName},\n Salary: ${this.salaryArray}\n Department: ${this.department},\n Order number: ${this.orderNumber},\n Date of employment: ${this.dateOfEmployment}\n `
-	);
-};
 
 const employee1 = new Employee(
 	"Mary",
@@ -47,12 +56,15 @@ console.log(manager2);
 
 console.log("----------------------------------------------------");
 
-manager1.showInfo();
-manager2.showInfo();
+manager1.displayInfo();
+manager2.displayInfo();
 
 console.log("----------------------------------------------------");
 
-console.log(manager1.averageSalary(), `Employee ${manager1.employeeName}`);
-console.log(manager1.averageSalary(15), `Employee ${manager1.employeeName}`);
-console.log(manager2.averageSalary(), `Employee ${manager2.employeeName}`);
-console.log(manager2.averageSalary(20), `Employee ${manager2.employeeName}`);
+console.log(employee1.averageSalary());
+console.log(employee2.averageSalary());
+console.log("----------------------------------------------------");
+console.log(manager1.averageSalary());
+console.log(manager1.averageSalary(20));
+console.log(manager2.averageSalary());
+console.log(manager2.averageSalary(15));
