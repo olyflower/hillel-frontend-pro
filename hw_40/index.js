@@ -23,25 +23,15 @@ class Hamburger {
 		this.toppings.push(topping);
 		return this;
 	}
-	calculateCalories() {
-		const calories =
-			this.size.calories +
-			this.stuffing.calories +
-			Object.values(this.toppings).reduce(
-				(sum, key) => sum + key.calories,
-				0
-			);
-		return calories;
-	}
-	calculatePrice() {
-		const price =
-			this.size.price +
-			this.stuffing.price +
-			Object.values(this.toppings).reduce(
-				(sum, key) => sum + key.price,
-				0
-			);
-		return price;
+
+	calculateByAttribute(attribute) {
+		return [
+			this.size[attribute],
+			this.stuffing[attribute],
+			...Object.values(this.toppings).map(
+				(topping) => topping[attribute]
+			),
+		].reduce((sum, value) => sum + value, 0);
 	}
 }
 
@@ -50,8 +40,10 @@ const hamburger = new Hamburger(
 	Hamburger.STUFFING_CHEESE
 );
 hamburger.addTopping(Hamburger.TOPPING_SAUCE);
-console.log(`Calories: ${hamburger.calculateCalories()}`);
-console.log(`Price: ${hamburger.calculatePrice()}`);
-hamburger.addTopping(Hamburger.TOPPING_MAYO).addTopping(Hamburger.TOPPING_SAUCE);
-console.log(`Calories: ${hamburger.calculateCalories()}`);
-console.log(`Price: ${hamburger.calculatePrice()}`);
+console.log(`Calories: ${hamburger.calculateByAttribute("calories")}`);
+console.log(`Price: ${hamburger.calculateByAttribute("price")}`);
+hamburger
+	.addTopping(Hamburger.TOPPING_MAYO)
+	.addTopping(Hamburger.TOPPING_SAUCE);
+console.log(`Calories: ${hamburger.calculateByAttribute("calories")}`);
+console.log(`Price: ${hamburger.calculateByAttribute("price")}`);
