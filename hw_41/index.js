@@ -6,45 +6,45 @@ class SuperMath {
 			y: Number(prompt("Enter Y")),
 		};
 
+		console.log(obj);
 		return obj;
 	}
 
 	check(obj) {
+		const operations = {
+			"+": () => obj.x + obj.y,
+			"-": () => obj.x - obj.y,
+			"*": () => obj.x * obj.y,
+			"/": () => obj.x / obj.y,
+			"%": () => obj.x % obj.y,
+		};
+
 		console.log(obj);
 		const answer = prompt(
-			`If action ${obj.znak} enter 'Yes', else enter 'No'`
+			`If action ${obj.znak} enter 'yes', else enter 'no'`
 		);
 
 		if (answer !== null && answer.toLowerCase() === "yes") {
-			let result;
 			switch (obj.znak) {
-				case "-":
-					result = obj.x - obj.y;
-					break;
 				case "+":
-					result = obj.x + obj.y;
-					break;
+				case "-":
+				case "*":
 				case "/":
-					if (obj.y !== 0) {
-						result = obj.x / obj.y;
-					} else {
+				case "%":
+					if (obj.znak === "/" && obj.y === 0) {
 						console.log("Invalid input. Division by zero");
 						return this.check(this.input());
 					}
-					break;
-				case "*":
-					result = obj.x * obj.y;
-					break;
-				case "%":
-					result = obj.x % obj.y;
-					break;
+					console.log(operations[obj.znak]());
+					return operations[obj.znak]();
+
 				default:
 					console.log("Invalid operator");
 					return this.check(this.input());
 			}
-			console.log(result);
-			return result;
-		} else return this.check(this.input());
+		} else {
+			return this.check(this.input());
+		}
 	}
 }
 
