@@ -17,17 +17,17 @@ function calculateCommission(value) {
 	return commission;
 }
 
-function calculateBlockHeight() {
-	if (this === range) {
-		number.value = range.value;
-	}
-	if (this === number) {
-		range.value = number.value;
-	}
-	
-	blockGreen.style.height = `${range.value}px`;
-	blockRed.style.height = `${calculateCommission(range.value)}px`;
+function calculateBlocksHeight(el) {
+	blockGreen.style.height = `${el.value}px`;
+	blockRed.style.height = `${calculateCommission(el.value)}px`;
 }
 
-range.addEventListener("input", calculateBlockHeight);
-number.addEventListener("input", calculateBlockHeight);
+range.addEventListener("input", function () {
+	number.value = range.value;
+	calculateBlocksHeight(range);
+});
+
+number.addEventListener("input", function () {
+	range.value = number.value;
+	calculateBlocksHeight(number);
+});
