@@ -6,27 +6,30 @@ const data = [
 	["a", "b"],
 ];
 
-const ul = document.createElement("ul");
-document.body.append(ul);
+function createList() {
+	const ul = document.createElement("ul");
+	document.body.append(ul);
 
-function nestedList(arr, el) {
-	arr.forEach((item) => {
-		const li = document.createElement("li");
+	function nestedList(arr, el) {
+		arr.map((item) => {
+			const li = document.createElement("li");
 
-		if (Array.isArray(item)) {
-			const ulChild = document.createElement("ul");
-			li.appendChild(ulChild);
-			nestedList(item, ulChild);
-		} else {
-			li.textContent = item;
-		}
+			if (Array.isArray(item)) {
+				const ulChild = document.createElement("ul");
+				li.append(ulChild);
+				nestedList(item, ulChild);
+			} else {
+				li.textContent = item;
+			}
 
-		el.appendChild(li);
-	});
+			el.append(li);
+		});
+	}
+	nestedList(data, ul);
 }
 
 const button = document.querySelector(".button");
 
 button.addEventListener("click", function getList() {
-	nestedList(data, ul);
+	createList();
 });
