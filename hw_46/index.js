@@ -6,30 +6,22 @@ const data = [
 	["a", "b"],
 ];
 
-function createList() {
+function generateList(arr) {
 	const ul = document.createElement("ul");
-	document.body.append(ul);
 
-	function nestedList(arr, el) {
-		arr.map((item) => {
-			const li = document.createElement("li");
+	const list = arr.map((item) => {
+		const li = document.createElement("li");
+		li.append(Array.isArray(item) ? generateList(item) : item);
+		return li;
+	});
 
-			if (Array.isArray(item)) {
-				const ulChild = document.createElement("ul");
-				li.append(ulChild);
-				nestedList(item, ulChild);
-			} else {
-				li.textContent = item;
-			}
+	ul.append(...list);
 
-			el.append(li);
-		});
-	}
-	nestedList(data, ul);
+	return ul;
 }
 
 const button = document.querySelector(".button");
 
-button.addEventListener("click", function getList() {
-	createList();
+button.addEventListener("click", function () {
+	document.body.append(generateList(data));
 });
