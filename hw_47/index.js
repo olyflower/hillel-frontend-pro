@@ -1,109 +1,81 @@
 const data = [
 	{
-		id: 1,
-		name: "product1",
 		category: "category1",
-		description: "description",
-		price: 100,
+		products: ["product1", "product2", "product3"],
 	},
 	{
-		id: 2,
-		name: "product2",
-		category: "category1",
-		description: "description",
-		price: 150,
-	},
-	{
-		id: 3,
-		name: "product3",
 		category: "category2",
-		description: "description",
-		price: 120,
+		products: ["product3", "product4", "product5"],
 	},
 	{
-		id: 4,
-		name: "product4",
 		category: "category3",
-		description: "description",
-		price: 100,
+		products: ["product6", "product7", "product8"],
 	},
 	{
-		id: 5,
-		name: "product5",
-		category: "category2",
-		description: "description",
-		price: 400,
+		category: "category4",
+		products: ["product9", "product10", "product11"],
 	},
 ];
 
-const container = document.querySelector(".container");
+function displayCategories(arr) {
+	const categories = document.querySelector(".categories");
 
-function createCategoryList(arr) {
-	const categoryList = [];
-
-	arr.forEach((item) => {
-		if (!categoryList.includes(item.category)) {
-			categoryList.push(item.category);
-		}
-	});
-	return categoryList;
-}
-
-function displayCategory(arr) {
-	const divCategory = document.createElement("div");
-	divCategory.classList.add("categories");
-	divCategory.textContent = "Categories";
-
-	const list = arr.map((category) => {
+	const list = arr.map((item) => {
 		const div = document.createElement("div");
-		div.append(category);
+		div.textContent = item.category;
 		div.addEventListener("click", function () {
-			displayProduct(data, category);
+			displayProducts(item.products);
 		});
 		return div;
 	});
 
-	divCategory.append(...list);
+	categories.append(...list);
 
-	return divCategory;
+	return categories;
 }
 
-function displayProduct(arr, category) {
-	const divProduct = document.createElement("div");
-	divProduct.classList.add("products");
-	divProduct.textContent = "Products in category";
+function displayProducts(items) {
+	const products = document.querySelector(".products");
 
-	const productsInCategory = arr.filter((item) => item.category === category);
+	products.innerHTML = "";
 
-	const list = productsInCategory.map((item) => {
+	products.textContent = "Products";
+
+	const list = items.map((item) => {
 		const div = document.createElement("div");
-		div.append(item.name);
+		div.textContent = item;
 		div.addEventListener("click", function () {
-			displayItemInfo(item, divProduct);
+			displayInfo(item, products);
 		});
 		return div;
 	});
 
-	divProduct.append(...list);
-	container.append(divProduct);
-	return divProduct;
+	products.append(...list);
+
+	return products;
 }
 
-function displayItemInfo(product, divProduct) {
-	const divItem = document.createElement("div");
-	divItem.classList.add("items");
+function displayInfo(item, products) {
+	const infoItems = document.querySelector(".items");
+	infoItems.innerHTML = "";
+	infoItems.textContent = "Product Info";
 
-	divItem.textContent = `Product id: ${product.id} Product name: ${product.name} Description: ${product.description} Price: ${product.price}`;
+	const fragment = document.createDocumentFragment();
+
+	const productItem = document.createElement("div");
+	productItem.textContent = item;
+	fragment.append(productItem);
+
 	const button = document.createElement("button");
-	button.classList.add("button");
 	button.textContent = "Buy";
+	fragment.append(button);
 	button.addEventListener("click", function () {
 		alert("Success!");
-		divItem.remove();
-		divProduct.remove();
+		products.innerHTML = "";
+		infoItems.innerHTML = "";
 	});
-	divItem.append(button);
-	container.append(divItem);
+
+	infoItems.append(fragment);
 }
 
-container.append(displayCategory(createCategoryList(data)));
+displayCategories(data);
