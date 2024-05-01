@@ -13,21 +13,18 @@ app.get("/products/", (req, res) => {
 				res.status(500).json({ error, message: "Error reading file" });
 				return;
 			}
-			console.log(req.query);
 
 			let products = JSON.parse(data);
 
 			const { stock, minPrice, maxPrice } = req.query;
 
-			if (stock && stock === "true") {
+			if (stock) {
+				const productStock = stock === "true";
 				products = products.filter(
-					(product) => product.productStock === true
-				);
-			} else if (stock && stock === "false") {
-				products = products.filter(
-					(product) => product.productStock === false
+					(product) => product.productStock === productStock
 				);
 			}
+
 			if (minPrice && maxPrice) {
 				products = products.filter(
 					(product) =>
@@ -50,7 +47,6 @@ app.get("/products/name", (req, res) => {
 				res.status(500).json({ error, message: "Error reading file" });
 				return;
 			}
-			console.log(req.query);
 
 			let products = JSON.parse(data);
 
@@ -75,8 +71,6 @@ app.get("/products/:id", (req, res) => {
 				res.status(500).json({ error, message: "Error reading file" });
 				return;
 			}
-
-			console.log(req.params);
 
 			const products = JSON.parse(data);
 
