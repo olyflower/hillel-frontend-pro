@@ -61,13 +61,13 @@ const createForm = () => {
 		citySelect.append(option);
 	});
 
-	const NovaPoshtaLabel = createNode({
+	const novaPoshtaLabel = createNode({
 		tagName: "label",
 		className: "required",
 		children: "Enter Nova Poshta department:",
 	});
 
-	const NovaPoshtaInput = createNode({
+	const novaPoshtaInput = createNode({
 		tagName: "input",
 		className: "form-order__novaposhta",
 	});
@@ -134,8 +134,8 @@ const createForm = () => {
 		fullNameInput,
 		citySelectLabel,
 		citySelect,
-		NovaPoshtaLabel,
-		NovaPoshtaInput,
+		novaPoshtaLabel,
+		novaPoshtaInput,
 		paymentLabel,
 		paymentSelect,
 		quantitySelectLabel,
