@@ -1,4 +1,4 @@
-import createForm from "../../src/helpers/createForm.js";
+import createForm from "../../src/helpers/createForm";
 
 import { clearNode, createNode } from "../../src/helpers/nodeHelper.js";
 import { createOrderData } from "../parts/order.js";

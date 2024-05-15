@@ -1,9 +1,9 @@
-import displayCategories from "./parts/categories.js";
-import displayProducts from "./parts/product.js";
-import displayProductDetail from "./parts/item.js";
+import displayCategories from "./parts/categories";
+import displayProducts from "./parts/product";
+import displayProductDetail from "./parts/item";
 
-import { displayOrderInfo } from "./parts/order.js";
-import { clearNode } from "../src/helpers/nodeHelper.js";
+import { displayOrderInfo } from "./parts/order";
+import { clearNode } from "../src/helpers/nodeHelper";
 
 function initStoreModule(store) {
 	const categories = document.querySelector(".categories");
@@ -27,7 +27,7 @@ function main() {
 		meta: ["Clothing", "Footwear", "Accessories"],
 		data: {
 			Clothing: [
-				{ id: 1, name: "T-Shirt", brand: "Nike", price: 25 },
+				{ id: 1, name: "Shirt", brand: "Nike", price: 25 },
 				{ id: 2, name: "Jeans", brand: "Levi's", price: 50 },
 				{ id: 3, name: "Dress", brand: "Zara", price: 70 },
 			],
