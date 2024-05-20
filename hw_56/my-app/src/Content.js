@@ -1,3 +1,4 @@
+import "./Content.css";
 import coffee from "./coffee.jpg";
 import coffee1 from "./coffee1.jpg";
 

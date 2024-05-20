@@ -1,16 +1,17 @@
+import "./Header.css";
 import logo from "./logo.png";
 
+const headerMenu = ["HOME", "ABOUT", "CONTACTS", "REVIEWS"];
+
+const makeHeaderMenu = () => {
+	return headerMenu.map((item) => (
+		<li>
+			<a href="#">{item}</a>
+		</li>
+	));
+};
+
 function Header() {
-	const headerMenu = ["HOME", "ABOUT", "CONTACTS", "REVIEWS"];
-
-	const makeHeaderMenu = () => {
-		return headerMenu.map((item) => (
-			<li>
-				<a href="#">{item}</a>
-			</li>
-		));
-	};
-
 	return (
 		<header className="header">
 			<img src={logo} alt="logo" className="header__logo" />

@@ -2,9 +2,6 @@ import Header from "./Header";
 import Nav from "./Nav";
 import Content from "./Content";
 import "./App.css";
-import "./Header.css";
-import "./Nav.css";
-import "./Content.css";
 
 function App() {
 	return (
