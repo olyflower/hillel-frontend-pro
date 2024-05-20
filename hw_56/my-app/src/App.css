@@ -1,0 +1,11 @@
+.container {
+	box-sizing: border-box;
+	max-width: 1600px;
+	margin: auto;
+	padding: 25px;
+}
+.container__content {
+	display: flex;
+	gap: 200px;
+	justify-content: space-between;
+}

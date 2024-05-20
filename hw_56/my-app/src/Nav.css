@@ -1,0 +1,11 @@
+.nav {
+	font-size: 20px;
+}
+
+.nav__menu {
+	list-style-type: none;
+}
+
+.button {
+	margin-left: 20px;
+}
