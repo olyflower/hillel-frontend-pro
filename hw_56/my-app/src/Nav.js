@@ -1,4 +1,5 @@
 function Nav() {
+	
 	const menuPrice = [
 		{ name: "Espresso", price: "$3" },
 		{ name: "Cappuccino", price: "$4" },
