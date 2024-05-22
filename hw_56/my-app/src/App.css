@@ -1,0 +1,10 @@
+.container {
+	box-sizing: border-box;
+	max-width: 1600px;
+	margin: auto;
+	padding: 25px;
+}
+.container__content {
+	display: flex;
+	justify-content: space-between;
+}

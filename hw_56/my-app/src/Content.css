@@ -1,0 +1,22 @@
+.container__content {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.img1 {
+	width: 400px;
+}
+
+.img2 {
+	width: 400px;
+	height: 300px;
+}
+
+.button {
+	padding: 10px 20px;
+	text-align: center;
+	margin: 50px;
+	cursor: pointer;
+	border-radius: 5px;
+}
