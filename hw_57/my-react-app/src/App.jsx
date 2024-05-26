@@ -15,10 +15,19 @@ function App() {
 
 	function onChangeHandler(event) {
 		const { name, value } = event.target;
-		setUserInput((prevUserInput) => ({
-			...prevUserInput,
-			[name]: name === "loanType" ? value : +value,
-		}));
+
+		const onUpdate = (newValue) => {
+			setUserInput((prevUserInput) => ({
+				...prevUserInput,
+				[name]: newValue,
+			}));
+		};
+
+		if (!isNaN(Number(value))) {
+			onUpdate(Number(value));
+		} else {
+			onUpdate(value);
+		}
 	}
 
 	const schedule = loanCalculatorService.getSchedule({
