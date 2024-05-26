@@ -46,6 +46,29 @@ class LoanCalculator {
 				};
 			});
 	}
+
+	getSchedule({
+		loanType,
+		creditSum,
+		interestRateYear,
+		interestRateMonth,
+		creditPeriod,
+	}) {
+		if (loanType === "classic") {
+			return this.paymentScheduleClassic({
+				creditSum,
+				interestRateMonth,
+				creditPeriod,
+			});
+		} else if (loanType === "annuitet") {
+			return this.paymentScheduleAnnuitet({
+				creditSum,
+				interestRateYear,
+				interestRateMonth,
+				creditPeriod,
+			});
+		}
+	}
 }
 
 export default new LoanCalculator();

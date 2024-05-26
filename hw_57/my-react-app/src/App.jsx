@@ -7,42 +7,27 @@ const initialUserInput = {
 	firstPayment: 0,
 	term: 2,
 	rate: 0,
+	loanType: "",
 };
 
 function App() {
 	const [userInput, setUserInput] = useState(initialUserInput);
-	const [loanType, setLoanType] = useState("");
-
-	function getSchedual(userInput, loanType) {
-		let calculateSchedual = [];
-
-		if (loanType === "classic") {
-			calculateSchedual = loanCalculatorService.paymentScheduleClassic({
-				creditSum: userInput.price,
-				interestRateMonth: userInput.rate / 100 / 12,
-				creditPeriod: +userInput.term,
-			});
-		} else if (loanType === "annuitet") {
-			calculateSchedual = loanCalculatorService.paymentScheduleAnnuitet({
-				creditSum: userInput.price,
-				interestRateYear: userInput.rate,
-				interestRateMonth: userInput.rate / 100 / 12,
-				creditPeriod: +userInput.term,
-			});
-		}
-		return calculateSchedual;
-	}
-
-	function selectMethod(event) {
-		setLoanType(event.target.value);
-	}
 
 	function onChangeHandler(event) {
 		const { name, value } = event.target;
-		setUserInput((prevUserInput) => ({ ...prevUserInput, [name]: +value }));
+		setUserInput((prevUserInput) => ({
+			...prevUserInput,
+			[name]: name === "loanType" ? value : +value,
+		}));
 	}
 
-	const schedual = getSchedual(userInput, loanType);
+	const schedule = loanCalculatorService.getSchedule({
+		loanType: userInput.loanType,
+		creditSum: userInput.price,
+		interestRateYear: userInput.rate,
+		interestRateMonth: userInput.rate / 100 / 12,
+		creditPeriod: userInput.term,
+	});
 
 	return (
 		<div className="app">
@@ -108,7 +93,12 @@ function App() {
 					</div>
 
 					<div className="w-35 input-group">
-						<select onChange={selectMethod} value={loanType}>
+						<select
+							name="loanType"
+							onChange={onChangeHandler}
+							value={userInput.loanType}
+						>
+							<option value="">Тип кредита</option>
 							<option value="annuitet">Ануїтет</option>
 							<option value="classic">Класика</option>
 						</select>
@@ -117,7 +107,7 @@ function App() {
 
 				{JSON.stringify(userInput)}
 
-				{JSON.stringify(schedual)}
+				{JSON.stringify(schedule)}
 
 				<div className="result-container">
 					<table id="result">
