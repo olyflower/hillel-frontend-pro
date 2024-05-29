@@ -22,19 +22,6 @@ body {
 	background: linear-gradient(30deg, #d8eac2 30%, #eeede9);
 }
 
-.header {
-	background-color: #1f2937;
-	padding: 10px;
-}
-
-.header img {
-	width: 200px;
-}
-
-.header .title {
-	color: #7240cd;
-}
-
 #main {
 	max-width: 75%;
 	margin: 0 auto;
