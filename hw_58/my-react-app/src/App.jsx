@@ -2,13 +2,13 @@ import { useState } from "react";
 import images from "./assets/images";
 import "./App.css";
 
-function App() {
-	const initialCounts = images.map((_, idx) => ({
-		name: `img${idx + 1}`,
-		count: 0,
-		time: null,
-	}));
+const initialCounts = images.map((_, idx) => ({
+	name: `img${idx + 1}`,
+	count: 0,
+	time: null,
+}));
 
+function App() {
 	const [counts, setCounts] = useState(initialCounts);
 	const [winner, setWinner] = useState(null);
 
@@ -31,8 +31,7 @@ function App() {
 	}
 
 	function onClickHandler() {
-		const winnerImg = findWinnerImg();
-		setWinner(winnerImg);
+		setWinner(findWinnerImg());
 	}
 
 	return (
