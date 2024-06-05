@@ -2,8 +2,10 @@ import { useCallback } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import styles from "../components/InputForm.module.css";
 
+const initialValues = { fullName: "", email: "", phoneNumber: "" };
+
 function InputForm() {
-	const initialValues = { fullName: "", email: "", phoneNumber: "" };
+	
 	const validate = useCallback((values) => {
 		const errors = {};
 
