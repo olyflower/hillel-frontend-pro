@@ -5,7 +5,6 @@ import styles from "../components/InputForm.module.css";
 const initialValues = { fullName: "", email: "", phoneNumber: "" };
 
 function InputForm() {
-	
 	const validate = useCallback((values) => {
 		const errors = {};
 
