@@ -1,36 +1,38 @@
+import { useCallback } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import styles from "../components/inputForm.module.css";
+import styles from "../components/InputForm.module.css";
 
-function inputForm() {
+function InputForm() {
+	const initialValues = { fullName: "", email: "", phoneNumber: "" };
+	const validate = useCallback((values) => {
+		const errors = {};
+
+		if (!values.fullName) {
+			errors.fullName = "Required";
+		}
+
+		if (!values.email) {
+			errors.email = "Required";
+		} else if (
+			!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+		) {
+			errors.email = "Invalid email address";
+		}
+
+		if (!values.phoneNumber) {
+			errors.phoneNumber = "Required";
+		} else if (!/^\d{12}$/.test(values.phoneNumber)) {
+			errors.phoneNumber = "Only digits and length 12";
+		}
+
+		return errors;
+	}, []);
+
 	return (
 		<div className={styles.container}>
 			<Formik
-				initialValues={{ fullName: "", email: "", phoneNumber: "" }}
-				validate={(values) => {
-					const errors = {};
-
-					if (!values.fullName) {
-						errors.fullName = "Required";
-					}
-
-					if (!values.email) {
-						errors.email = "Required";
-					} else if (
-						!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-							values.email
-						)
-					) {
-						errors.email = "Invalid email address";
-					}
-
-					if (!values.phoneNumber) {
-						errors.phoneNumber = "Required";
-					} else if (!/^\d{12}$/.test(values.phoneNumber)) {
-						errors.phoneNumber = "Only digits and length 12";
-					}
-
-					return errors;
-				}}
+				initialValues={initialValues}
+				validate={validate}
 				onSubmit={(values, { setSubmitting }) => {
 					setTimeout(() => {
 						alert(JSON.stringify(values, null, 2));
@@ -78,4 +80,4 @@ function inputForm() {
 	);
 }
 
-export default inputForm;
+export default InputForm;
