@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "../components/Form.module.css";
+import styles from "../components/CreateToDo.module.css";
 
-const Form = ({ addTask }) => {
+const CreateToDo = ({ addTask }) => {
 	const [taskName, setTaskName] = useState("");
 
 	const onChangeHandler = (event) => {
@@ -35,4 +35,4 @@ const Form = ({ addTask }) => {
 	);
 };
 
-export default Form;
+export default CreateToDo;

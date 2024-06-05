@@ -1,15 +1,15 @@
 import { useState } from "react";
 import ToDoItem from "./components/ToDoItem";
-import Form from "./components/Form";
+import CreateToDo from "./components/CreateToDo";
 import data from "./data";
 import sortToDo from "./services/sort";
 
-function App() {
-	const initialData = data.map((item) => ({
-		name: item.name,
-		state: item.state,
-	}));
+const initialData = data.map((item) => ({
+	name: item.name,
+	state: item.state,
+}));
 
+function App() {
 	const [toDo, setToDo] = useState(initialData);
 
 	const toDoHandler = (name) => {
@@ -27,7 +27,7 @@ function App() {
 
 	const addTask = (name) => {
 		const newTask = { name, state: "in work" };
-		setToDo([...toDo, newTask]);
+		setToDo((tasks) => [...tasks, newTask]);
 	};
 
 	const sortedToDo = [...toDo].sort(sortToDo);
@@ -43,7 +43,7 @@ function App() {
 				toDoHandler={toDoHandler}
 				deleteTask={deleteTask}
 			/>
-			<Form addTask={addTask} />
+			<CreateToDo addTask={addTask} />
 		</>
 	);
 }
