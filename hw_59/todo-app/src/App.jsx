@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ToDoItem from "./components/ToDoItem";
+import ToDoList from "./components/ToDoList";
 import CreateToDo from "./components/CreateToDo";
 import data from "./data";
 import sortToDo from "./services/sort";
@@ -12,7 +12,7 @@ const initialData = data.map((item) => ({
 function App() {
 	const [toDo, setToDo] = useState(initialData);
 
-	const toDoHandler = (name) => {
+	const onToggle = (name) => {
 		setToDo((prevToDo) =>
 			prevToDo.map((item) =>
 				item.name === name
@@ -38,9 +38,9 @@ function App() {
 
 	return (
 		<>
-			<ToDoItem
+			<ToDoList
 				toDo={sortedToDo}
-				toDoHandler={toDoHandler}
+				onToggle={onToggle}
 				deleteTask={deleteTask}
 			/>
 			<CreateToDo addTask={addTask} />

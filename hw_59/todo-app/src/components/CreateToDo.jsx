@@ -1,18 +1,16 @@
-import { useState } from "react";
+import { useRef } from "react";
 import styles from "../components/CreateToDo.module.css";
 
 const CreateToDo = ({ addTask }) => {
-	const [taskName, setTaskName] = useState("");
-
-	const onChangeHandler = (event) => {
-		setTaskName(event.target.value);
-	};
+	const taskRef = useRef();
 
 	const onSubmitHandler = (event) => {
 		event.preventDefault();
+		const taskName = taskRef.current.value;
+
 		if (taskName) {
 			addTask(taskName);
-			setTaskName("");
+			taskRef.current.value = "";
 		}
 	};
 
@@ -22,9 +20,8 @@ const CreateToDo = ({ addTask }) => {
 				<input
 					className={styles.input}
 					type="text"
-					value={taskName}
+					ref = {taskRef}
 					placeholder="Enter new task"
-					onChange={onChangeHandler}
 				/>
 			</label>
 
