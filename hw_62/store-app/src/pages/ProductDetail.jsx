@@ -1,10 +1,12 @@
-import ProductList from "../components/ProductList";
+import Header from "../components/Header";
+import Item from "../components/Item";
 import ProductsProvider from "../context/ProductsContextProvider";
 
 function Products() {
 	return (
 		<ProductsProvider>
-			<ProductList />
+			<Header />
+			<Item />
 		</ProductsProvider>
 	);
 }

@@ -1,12 +1,26 @@
-import { Link } from "react-router-dom";
+import { Box, Container, Typography } from "@mui/material";
+import Header from "../components/Header";
+import Gallery from "../components/Gallery";
+import ButtonGoToProducts from "../components/ButtonGoToProducts";
 
-function Home() {
+const Home = () => {
 	return (
-		<div>
-			<h1>Homepage</h1>
-			<Link to="./cart">to Cart</Link>
-		</div>
+		<>
+			<Header />
+			<Container maxWidth="lg">
+				<Gallery />
+				<Box sx={{ textAlign: "center", my: 4 }}>
+					<Typography
+						variant="h2"
+						sx={{ fontSize: { xs: "2rem", sm: "3rem" } }}
+					>
+						Welcome!
+					</Typography>
+					<ButtonGoToProducts />
+				</Box>
+			</Container>
+		</>
 	);
-}
+};
 
 export default Home;
