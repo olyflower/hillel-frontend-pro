@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CreateContact from "./components/CreateContact";
 import ContactList from "./components/ContactList";
 
@@ -19,22 +19,24 @@ function App() {
 		setContacts(contacts);
 	};
 
-	const deleteContact = (id) => {
-		setContacts(contacts.filter((item) => id !== item.id));
-	};
+	const deleteContact = useCallback((id) => {
+		setContacts((prevContacts) =>
+			prevContacts.filter((item) => id !== item.id)
+		);
+	}, []);
 
-	const addContact = () => {
+	const addContact = useCallback(() => {
 		setVisible(true);
-	};
+	}, []);
 
-	const handlerSave = (newContact) => {
-		setContacts([...contacts, newContact]);
+	const handlerSave = useCallback((newContact) => {
+		setContacts((prevContacts) => [...prevContacts, newContact]);
 		setVisible(false);
-	};
+	}, []);
 
-	const handlerCancel = () => {
+	const handlerCancel = useCallback(() => {
 		setVisible(false);
-	};
+	}, []);
 
 	return (
 		<div>
