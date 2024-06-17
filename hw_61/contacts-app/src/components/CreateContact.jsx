@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import styles from "../components/CreateContact.module.css";
+import { Container, Form, Label, Input, Button } from "./Styles";
 
 function CreateContact({ addContact, onCancel }) {
 	const nameRef = useRef();
@@ -21,33 +21,27 @@ function CreateContact({ addContact, onCancel }) {
 		}
 	};
 	return (
-		<div className={styles.container}>
-			<form onSubmit={onSubmitHandler}>
-				<label>
-					<input type="text" ref={nameRef} placeholder="Enter name" />
-					<input
+		<Container>
+			<Form onSubmit={onSubmitHandler}>
+				<Label>
+					<Input type="text" ref={nameRef} placeholder="Enter name" />
+					<Input
 						type="text"
 						ref={usernameRef}
 						placeholder="Enter username"
 					/>
-					<input
+					<Input
 						type="text"
 						ref={phoneRef}
 						placeholder="Enter phone number"
 					/>
-				</label>
-				<button type="submit" className={styles.button}>
-					Save
-				</button>
-				<button
-					type="button"
-					onClick={onCancel}
-					className={styles.button}
-				>
+				</Label>
+				<Button type="submit">Save</Button>
+				<Button type="button" onClick={onCancel}>
 					Cancel
-				</button>
-			</form>
-		</div>
+				</Button>
+			</Form>
+		</Container>
 	);
 }
 
