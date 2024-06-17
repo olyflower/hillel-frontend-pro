@@ -1,28 +1,19 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { useProductsContext } from "../context/ProductsContextProvider";
+import ButtonAddToCart from "../components/ButtonAddToCart";
 import {
 	Grid,
 	Card,
 	CardContent,
 	CardMedia,
 	Typography,
-	Button,
-	Modal,
 	Box,
 } from "@mui/material";
 import Header from "../components/Header";
-import Cart from "../components/Cart";
 
 const ProductList = () => {
-	const { products, addToCart, visible, setVisible } = useProductsContext();
-
-	const handleAddToCart = (product) => {
-		addToCart(product);
-		if (!visible) {
-			setVisible(true);
-		}
-	};
+	const { products } = useProductsContext();
 
 	return (
 		<>
@@ -66,29 +57,11 @@ const ProductList = () => {
 									</Typography>
 								</CardContent>
 							</Card>
-							<Button onClick={() => handleAddToCart(product)}>
-								Add to Cart
-							</Button>
+							<ButtonAddToCart product={product} />
 						</Grid>
 					))}
 				</Grid>
 			</Box>
-
-			<Modal open={visible} onClose={() => setVisible(false)}>
-				<Box
-					sx={{
-						position: "absolute",
-						top: "50%",
-						left: "50%",
-						transform: "translate(-50%, -50%)",
-						width: 800,
-						bgcolor: "background.paper",
-						p: 2,
-					}}
-				>
-					<Cart />
-				</Box>
-			</Modal>
 		</>
 	);
 };

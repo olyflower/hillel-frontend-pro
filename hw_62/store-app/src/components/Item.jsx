@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Typography, Card, CardMedia, Grid } from "@mui/material";
 import ButtonGoToProducts from "../components/ButtonGoToProducts";
+import ButtonAddToCart from "../components/ButtonAddToCart";
 import { useProductsContext } from "../context/ProductsContextProvider";
 
 const Item = () => {
@@ -36,6 +37,7 @@ const Item = () => {
 				<Typography variant="h5">Category: {category.name}</Typography>
 				<Typography>Description: {description}</Typography>
 				<ButtonGoToProducts />
+				<ButtonAddToCart product={product} />
 			</Grid>
 		</Grid>
 	);

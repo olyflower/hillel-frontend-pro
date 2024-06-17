@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
+import ButtonGoToProducts from "../components/ButtonGoToProducts";
 
 const NoPage = () => {
 	return (
@@ -9,10 +10,8 @@ const NoPage = () => {
 				flexDirection: "column",
 				justifyContent: "center",
 				alignItems: "center",
-
 				textAlign: "center",
-
-				padding: 2,
+				p: 2,
 			}}
 		>
 			<Typography variant="h1" component="div" gutterBottom>
@@ -21,6 +20,7 @@ const NoPage = () => {
 			<Typography variant="h4" component="div" gutterBottom>
 				Page not found
 			</Typography>
+			<ButtonGoToProducts />
 		</Box>
 	);
 };

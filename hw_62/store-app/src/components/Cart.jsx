@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useMemo } from "react";
 import { useProductsContext } from "../context/ProductsContextProvider";
 import {
@@ -10,11 +11,17 @@ import {
 	IconButton,
 	Paper,
 } from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Remove, Delete } from "@mui/icons-material";
 
 const Cart = () => {
-	const { cart, increment, decrement, clear, setVisible } =
-		useProductsContext();
+	const {
+		cart,
+		increment,
+		decrement,
+		deleteProductFromCart,
+		clearCart,
+		setVisible,
+	} = useProductsContext();
 
 	const getTotalPrice = useMemo(() => {
 		return cart.reduce(
@@ -29,25 +36,27 @@ const Cart = () => {
 				(item) =>
 					`${item.title} - ${item.quantity} x $${item.price.toFixed(
 						2
-					)}`
+					)} Sum: $${item.quantity * item.price.toFixed(2)}`
 			)
 			.join("\n");
 		const total = getTotalPrice.toFixed(2);
-		alert(
-			`Order placed successfully!\n\nProducts:\n${order}\n\nTotal sum: $${total}`
-		);
-		clear();
-		setVisible(false);
+		if (parseFloat(total) > 0) {
+			alert(
+				`Order placed successfully!\n\nProducts:\n${order}\n\nTotal sum: $${total}`
+			);
+			clearCart();
+			setVisible(false);
+		} else alert("Add products to your cart to make order!");
 	};
 
 	return (
-		<Paper elevation={3} sx={{ padding: 2, maxWidth: 800, margin: "auto" }}>
+		<Paper elevation={3} sx={{ p: 2, maxWidth: 800, m: "auto" }}>
 			<Box
 				sx={{
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
-					marginBottom: 2,
+					mb: 2,
 				}}
 			>
 				<Typography variant="h4" gutterBottom>
@@ -67,7 +76,11 @@ const Cart = () => {
 						>
 							<Box sx={{ flexGrow: 1 }}>
 								<ListItemText
-									primary={item.title}
+									primary={
+										<Link to={`/products/${item.id}`}>
+											{item.title}
+										</Link>
+									}
 									secondary={`Price: $${item.price.toFixed(
 										2
 									)} - Quantity: ${item.quantity}`}
@@ -81,23 +94,26 @@ const Cart = () => {
 							</Box>
 							<Box>
 								<IconButton
-									onClick={() => increment(item.id)}
-									color="primary"
-								>
-									<Add />
-								</IconButton>
-								<IconButton
 									onClick={() => decrement(item.id)}
 									color="primary"
 								>
 									<Remove />
 								</IconButton>
 								<IconButton
+									onClick={() => increment(item.id)}
+									color="primary"
+								>
+									<Add />
+								</IconButton>
+
+								<IconButton
 									onClick={() =>
 										deleteProductFromCart(item.id)
 									}
 									color="secondary"
-								></IconButton>
+								>
+									<Delete />
+								</IconButton>
 							</Box>
 						</Box>
 					</ListItem>
@@ -107,7 +123,7 @@ const Cart = () => {
 				sx={{
 					display: "flex",
 					justifyContent: "space-between",
-					marginTop: 2,
+					mt: 2,
 				}}
 			>
 				<Typography variant="h6">Total:</Typography>
@@ -119,13 +135,13 @@ const Cart = () => {
 				sx={{
 					display: "flex",
 					justifyContent: "space-between",
-					marginTop: 2,
+					mt: 2,
 				}}
 			>
 				<Button
 					onClick={() => setVisible(false)}
 					variant="contained"
-					sx={{ marginTop: 2 }}
+					sx={{ mt: 2 }}
 				>
 					Close
 				</Button>
@@ -133,7 +149,7 @@ const Cart = () => {
 					onClick={placeOrder}
 					variant="contained"
 					color="primary"
-					sx={{ marginTop: 2 }}
+					sx={{ mt: 2 }}
 				>
 					Place Order
 				</Button>

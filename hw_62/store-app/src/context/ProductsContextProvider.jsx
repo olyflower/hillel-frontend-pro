@@ -1,19 +1,24 @@
 import {
 	createContext,
-	useState,
 	useEffect,
 	useContext,
 	useCallback,
+	useReducer,
 } from "react";
+import { ACTIONS, reducer } from "../reducer/reducer";
 
 const ProductsContext = createContext({});
 export const useProductsContext = () => useContext(ProductsContext);
 
+const initialState = {
+	products: [],
+	cart: [],
+	visible: false,
+	totalPrice: 0,
+};
+
 const ProductsProvider = ({ children }) => {
-	const [products, setProducts] = useState([]);
-	const [cart, setCart] = useState([]);
-	const [visible, setVisible] = useState(false);
-	const [totalPrice, setTotalPrice] = useState(0);
+	const [model, dispatch] = useReducer(reducer, initialState);
 
 	useEffect(() => {
 		fetchData();
@@ -21,7 +26,7 @@ const ProductsProvider = ({ children }) => {
 
 	useEffect(() => {
 		updateTotalPrice();
-	}, [cart]);
+	}, [model.cart]);
 
 	const fetchData = async () => {
 		const products = await (
@@ -29,79 +34,52 @@ const ProductsProvider = ({ children }) => {
 				"https://api.escuelajs.co/api/v1/products?offset=0&limit=15"
 			)
 		).json();
-		setProducts(products);
+		dispatch({ action: ACTIONS.SET_PRODUCTS, products });
 	};
 
 	const addToCart = (product) => {
-		setCart((prevCart) => {
-			const productInCart = prevCart.find(
-				(item) => item.id === product.id
-			);
-			if (productInCart) {
-				return prevCart.map((item) =>
-					item.id === product.id
-						? { ...item, quantity: item.quantity + 1 }
-						: item
-				);
-			} else {
-				return [...prevCart, { ...product, quantity: 1 }];
-			}
-		});
-		setVisible(true);
+		dispatch({ action: ACTIONS.ADD_TO_CART, product });
 	};
 
 	const deleteProductFromCart = (productId) => {
-		setCart((prevCart) =>
-			prevCart.filter((product) => product.id !== productId)
-		);
+		dispatch({ action: ACTIONS.DELETE_FROM_CART, productId });
 	};
 
 	const increment = (productId) => {
-		setCart((prevCart) =>
-			prevCart.map((item) =>
-				item.id === productId
-					? { ...item, quantity: item.quantity + 1 }
-					: item
-			)
-		);
+		dispatch({ action: ACTIONS.INCREMENT, productId });
 	};
 
 	const decrement = (productId) => {
-		setCart((prevCart) =>
-			prevCart
-				.map((item) =>
-					item.id === productId
-						? { ...item, quantity: item.quantity - 1 }
-						: item
-				)
-				.filter((item) => item.quantity > 0)
-		);
+		dispatch({ action: ACTIONS.DECREMENT, productId });
 	};
 
-	const clear = () => {
-		setCart([]);
-		setVisible(false);
+	const clearCart = () => {
+		dispatch({ action: ACTIONS.CLEAR_CART });
 	};
 
 	const updateTotalPrice = useCallback(() => {
-		const total = cart.reduce(
+		const total = model.cart.reduce(
 			(total, item) => total + item.price * item.quantity,
 			0
 		);
-		setTotalPrice(total);
-	}, [cart]);
+		dispatch({ action: ACTIONS.SET_TOTAL_PRICE, total });
+	}, [model.cart]);
+
+	const setVisible = (visible) => {
+		dispatch({ action: ACTIONS.SET_VISIBLE, visible });
+	};
 
 	const context = {
-		products,
-		cart,
+		products: model.products,
+		cart: model.cart,
 		addToCart,
 		increment,
 		decrement,
 		deleteProductFromCart,
-		clear,
-		visible,
+		clearCart,
+		visible: model.visible,
 		setVisible,
-		totalPrice,
+		totalPrice: model.totalPrice,
 		updateTotalPrice,
 	};
 
