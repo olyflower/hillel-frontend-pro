@@ -1,12 +1,13 @@
 import { Button } from "@mui/material";
 import { useProductsContext } from "../context/ProductsContextProvider";
 
-const ButtonAddToCart = ({product}) => {
+const ButtonAddToCart = ({ product }) => {
 	const { addToCart, visible, setVisible } = useProductsContext();
 
 	const handleAddToCart = (product) => {
-		addToCart(product);
-		if (!visible) {
+		const productInCart = addToCart(product);
+
+		if (productInCart && !visible) {
 			setVisible(true);
 		}
 	};

@@ -6,6 +6,13 @@ import Cart from "../components/Cart";
 const Header = () => {
 	const { totalPrice, visible, setVisible } = useProductsContext();
 
+	const handleClose = () => {
+		setVisible(false);
+	};
+	const handleOpen = () => {
+		setVisible(true);
+	};
+
 	return (
 		<AppBar position="static">
 			<Toolbar>
@@ -17,7 +24,7 @@ const Header = () => {
 						Products
 					</Button>
 				</Box>
-				<Modal open={visible} onClose={() => setVisible(false)}>
+				<Modal open={visible} onClose={handleClose}>
 					<Box
 						sx={{
 							position: "absolute",
@@ -35,9 +42,7 @@ const Header = () => {
 				<Typography
 					color="inherit"
 					sx={{ cursor: "pointer" }}
-					onClick={() => {
-						setVisible(true);
-					}}
+					onClick={handleOpen}
 				>
 					CART (${totalPrice})
 				</Typography>

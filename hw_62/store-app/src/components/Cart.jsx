@@ -36,7 +36,7 @@ const Cart = () => {
 				(item) =>
 					`${item.title} - ${item.quantity} x $${item.price.toFixed(
 						2
-					)} Sum: $${item.quantity * item.price.toFixed(2)}`
+					)} Sum: $${(item.quantity * item.price).toFixed(2)}`
 			)
 			.join("\n");
 		const total = getTotalPrice.toFixed(2);
@@ -45,8 +45,10 @@ const Cart = () => {
 				`Order placed successfully!\n\nProducts:\n${order}\n\nTotal sum: $${total}`
 			);
 			clearCart();
-			setVisible(false);
-		} else alert("Add products to your cart to make order!");
+		} else {
+			alert("Add products to your cart to make order!");
+		}
+		setVisible(false);
 	};
 
 	return (
@@ -105,7 +107,6 @@ const Cart = () => {
 								>
 									<Add />
 								</IconButton>
-
 								<IconButton
 									onClick={() =>
 										deleteProductFromCart(item.id)
