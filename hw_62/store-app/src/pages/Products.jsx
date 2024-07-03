@@ -1,5 +1,4 @@
 import { useProductsContext } from "../context/ProductsContextProvider";
-import { Outlet } from "react-router-dom";
 import { Grid, Box } from "@mui/material";
 import CardComponent from "../components/CardComponent";
 import ButtonAddToCart from "../components/ButtonAddToCart";
@@ -26,7 +25,6 @@ const Products = () => {
 					))}
 				</Grid>
 			</Box>
-			{/* <Outlet /> */}
 		</>
 	);
 };

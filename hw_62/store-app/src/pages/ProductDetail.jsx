@@ -9,8 +9,6 @@ const ProductDetail = () => {
 	const { products } = useProductsContext();
 	const product = products.find((item) => item.id === parseInt(id));
 
-	console.log(product);
-
 	if (!product) {
 		return <Typography>Product not found</Typography>;
 	}
