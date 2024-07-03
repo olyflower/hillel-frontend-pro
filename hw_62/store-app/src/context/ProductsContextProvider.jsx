@@ -31,7 +31,7 @@ const ProductsProvider = ({ children }) => {
 	const fetchData = async () => {
 		const products = await (
 			await fetch(
-				"https://api.escuelajs.co/api/v1/products?offset=0&limit=15"
+				"https://api.escuelajs.co/api/v1/products"
 			)
 		).json();
 		dispatch({ action: ACTIONS.SET_PRODUCTS, products });
